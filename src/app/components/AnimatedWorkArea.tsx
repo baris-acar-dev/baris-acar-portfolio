@@ -67,7 +67,7 @@ const AnimatedWorkArea: React.FC<WorkAreaProps> = ({
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       // Draw connections
-      ctx.strokeStyle = 'rgba(139, 92, 246, 0.1)';
+      ctx.strokeStyle = 'rgba(59, 130, 246, 0.1)';
       ctx.lineWidth = 1;
       
       for (let i = 0; i < particles.length; i++) {
@@ -114,7 +114,7 @@ const AnimatedWorkArea: React.FC<WorkAreaProps> = ({
 
   const getAnimationClass = () => {
     switch (animationType) {
-      case 'ai': return 'ai-animation neural-animation';
+      case 'ai': return 'ai-animation';
       case 'frontend': return 'frontend-animation matrix-bg';
       case 'games': return 'games-animation';
       case 'design': return 'design-animation';
@@ -174,7 +174,7 @@ const AnimatedWorkArea: React.FC<WorkAreaProps> = ({
           {skills.map((skill) => (
             <motion.span
               key={skill}
-              className="px-2 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded-full text-xs font-medium"
+              className="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full text-xs font-medium"
               variants={{
                 hidden: { opacity: 0, scale: 0 },
                 visible: { opacity: 1, scale: 1 }
@@ -194,7 +194,7 @@ const AnimatedWorkArea: React.FC<WorkAreaProps> = ({
           transition={{ duration: 1, delay: 0.5 }}
         >
           <motion.div 
-            className="h-full bg-gradient-to-r from-purple-600 to-pink-600"
+            className="h-full bg-gradient-to-r from-blue-600 to-purple-600"
             initial={{ width: "0%" }}
             whileInView={{ width: "85%" }}
             transition={{ duration: 1.5, delay: 0.7 }}
@@ -204,9 +204,9 @@ const AnimatedWorkArea: React.FC<WorkAreaProps> = ({
 
       {/* Glowing border effect */}
       <motion.div
-        className="absolute inset-0 rounded-xl border-2 border-transparent bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        className="absolute inset-0 rounded-xl border-2 border-transparent bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
         style={{
-          background: 'linear-gradient(45deg, #8b5cf6, #ec4899, #3b82f6, #8b5cf6)',
+          background: 'linear-gradient(45deg, #3b82f6, #8b5cf6, #3b82f6, #8b5cf6)',
           backgroundSize: '400% 400%',
           animation: isHovered ? 'neural-network 3s ease infinite' : 'none'
         }}

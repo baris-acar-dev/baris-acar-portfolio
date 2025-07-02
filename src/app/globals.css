@@ -460,3 +460,100 @@ html {
     backdrop-filter: blur(10px) saturate(150%);
   }
 }
+
+/* Mobile Optimizations */
+@media (max-width: 640px) {
+  /* Ensure minimum touch target size */
+  button, .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Improve text readability */
+  body {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  
+  /* Better spacing */
+  .mobile-optimized {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Prevent zoom on input focus */
+  input, select, textarea {
+    font-size: 16px;
+  }
+  
+  /* Improve section spacing */
+  section {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+}
+
+/* Touch feedback animations */
+@media (hover: none) and (pointer: coarse) {
+  /* Mobile-specific touch animations */
+  .touch-feedback:active {
+    transform: scale(0.95);
+    transition: transform 0.1s ease;
+  }
+  
+  /* Remove hover effects on touch devices */
+  .hover-effect:hover {
+    transform: none;
+  }
+}
+
+/* Improve mobile performance */
+@media (max-width: 640px) {
+  /* Reduce complex animations */
+  .reduce-motion {
+    animation-duration: 0.3s !important;
+    transition-duration: 0.3s !important;
+  }
+  
+  /* Better text wrapping */
+  h1, h2, h3 {
+    word-wrap: break-word;
+    hyphens: auto;
+  }
+}
+
+/* Section Indicator Animations */
+@keyframes section-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 0 15px rgba(59, 130, 246, 0);
+    transform: scale(1.05);
+  }
+}
+
+@keyframes float-indicator {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+.section-indicator {
+  animation: section-pulse 2s infinite, float-indicator 3s ease-in-out infinite;
+}
+
+.section-indicator-text {
+  animation: pulse 2s infinite;
+}
+
+/* Touch area for mobile navbar */
+.navbar-touch-area {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 80px;
+  height: 100vh;
+  z-index: 25;
+  background: transparent;
+}

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 interface NavigationItem {
   id: string;
@@ -14,6 +14,87 @@ interface NavigationItem {
 
 const Navbar = () => {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [currentSection, setCurrentSection] = useState('home');
+  const [showIndicator, setShowIndicator] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      setIsScrolled(scrollY > 100);
+      
+      // Determine current section
+      const sections = ['home', 'projects', 'work', 'skills', 'contact'];
+      const sectionElements = sections.map(section => ({
+        id: section,
+        element: document.querySelector(`[data-section="${section}"]`),
+      }));
+
+      let currentSectionId = 'home';
+      sectionElements.forEach(({ id, element }) => {
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
+            currentSectionId = id;
+          }
+        }
+      });
+      
+      setCurrentSection(currentSectionId);
+      setShowIndicator(scrollY > 100);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  const getSectionIcon = (section: string) => {
+    switch (section) {
+      case 'home':
+        return (
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+          </svg>
+        );
+      case 'projects':
+        return (
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+          </svg>
+        );
+      case 'work':
+        return (
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2V6" />
+          </svg>
+        );
+      case 'skills':
+        return (
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+          </svg>
+        );
+      case 'contact':
+        return (
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+        );
+      default:
+        return null;
+    }
+  };
 
   const scrollToSection = (sectionId: string) => {
     const element = document.querySelector(`[data-section="${sectionId}"]`);
@@ -69,6 +150,16 @@ const Navbar = () => {
       section: "projects"
     },
     {
+      id: "work",
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2V6" />
+        </svg>
+      ),
+      label: "Work Areas",
+      section: "work"
+    },
+    {
       id: "skills",
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -100,110 +191,189 @@ const Navbar = () => {
   };
 
   return (
-    <motion.nav
-      initial={{ x: -100, opacity: 0 }}
-      animate={{ x: 0, opacity: 1 }}
-      transition={{ duration: 0.8, delay: 0.5 }}
-      className="fixed left-4 top-1/2 transform -translate-y-1/2 z-40 group"
-    >
-      <motion.div 
-        className="bg-white/10 dark:bg-gray-900/10 backdrop-blur-lg border border-white/20 dark:border-gray-700/50 rounded-2xl p-3 shadow-2xl"
-        whileHover={{ scale: 1.02 }}
-        transition={{ duration: 0.2 }}
+    <>
+      {/* Main Navbar */}
+      <motion.nav
+        initial={{ x: -100, opacity: 0 }}
+        animate={{ 
+          x: 0, 
+          opacity: isMobile && isScrolled ? 0 : 1,
+          pointerEvents: isMobile && isScrolled ? 'none' : 'auto'
+        }}
+        transition={{ duration: 0.3 }}
+        className="fixed left-4 top-1/2 transform -translate-y-1/2 z-40 group"
       >
-        <div className="flex flex-col space-y-2">
-          {/* Social Links */}
-          {socialLinks.map((item) => (
+        <motion.div 
+          className="bg-white/10 dark:bg-gray-900/10 backdrop-blur-lg border border-white/20 dark:border-gray-700/50 rounded-2xl p-3 shadow-2xl"
+          whileHover={{ scale: 1.02 }}
+          transition={{ duration: 0.2 }}
+        >
+          <div className="flex flex-col space-y-2">
+            {/* Social Links */}
+            {socialLinks.map((item) => (
+              <motion.button
+                key={item.id}
+                onClick={() => handleClick(item)}
+                onHoverStart={() => setHoveredItem(item.id)}
+                onHoverEnd={() => setHoveredItem(null)}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                className="relative flex items-center justify-center w-10 h-10 text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-200 rounded-lg hover:bg-white/20 dark:hover:bg-gray-700/50"
+              >
+                {item.icon}
+                
+                {/* Tooltip */}
+                <motion.div
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ 
+                    opacity: hoveredItem === item.id ? 1 : 0,
+                    x: hoveredItem === item.id ? 0 : -10
+                  }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute left-full ml-3 px-3 py-1.5 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 text-sm rounded-lg whitespace-nowrap pointer-events-none shadow-lg"
+                >
+                  {item.label}
+                  <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1 w-2 h-2 bg-gray-900 dark:bg-gray-100 rotate-45" />
+                </motion.div>
+              </motion.button>
+            ))}
+
+            {/* Divider */}
+            <div className="w-full h-px bg-gradient-to-r from-transparent via-blue-400 dark:via-blue-500 to-transparent my-2" />
+
+            {/* Navigation Items */}
+            {navigationItems.map((item) => (
+              <motion.button
+                key={item.id}
+                onClick={() => handleClick(item)}
+                onHoverStart={() => setHoveredItem(item.id)}
+                onHoverEnd={() => setHoveredItem(null)}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                className={`relative flex items-center justify-center w-10 h-10 transition-colors duration-200 rounded-lg hover:bg-white/20 dark:hover:bg-gray-700/50 ${
+                  currentSection === item.section 
+                    ? 'text-blue-500 dark:text-blue-400 bg-blue-100/20 dark:bg-blue-900/20' 
+                    : 'text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400'
+                }`}
+              >
+                {item.icon}
+                
+                {/* Current section indicator */}
+                {currentSection === item.section && (
+                  <motion.div
+                    layoutId="currentSection"
+                    className="absolute inset-0 bg-blue-500/20 dark:bg-blue-400/20 rounded-lg"
+                    initial={false}
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  />
+                )}
+                
+                {/* Tooltip */}
+                <motion.div
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ 
+                    opacity: hoveredItem === item.id ? 1 : 0,
+                    x: hoveredItem === item.id ? 0 : -10
+                  }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute left-full ml-3 px-3 py-1.5 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 text-sm rounded-lg whitespace-nowrap pointer-events-none shadow-lg z-10"
+                >
+                  {item.label}
+                  <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1 w-2 h-2 bg-gray-900 dark:bg-gray-100 rotate-45" />
+                </motion.div>
+              </motion.button>
+            ))}
+
+            {/* Divider */}
+            <div className="w-full h-px bg-gradient-to-r from-transparent via-blue-400 dark:via-blue-500 to-transparent my-2" />
+
+            {/* Contact Item */}
             <motion.button
-              key={item.id}
-              onClick={() => handleClick(item)}
-              onHoverStart={() => setHoveredItem(item.id)}
+              onClick={() => handleClick(contactItem)}
+              onHoverStart={() => setHoveredItem(contactItem.id)}
               onHoverEnd={() => setHoveredItem(null)}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
-              className="relative flex items-center justify-center w-10 h-10 text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors duration-200 rounded-lg hover:bg-white/20 dark:hover:bg-gray-700/50"
+              className={`relative flex items-center justify-center w-10 h-10 transition-colors duration-200 rounded-lg hover:bg-white/20 dark:hover:bg-gray-700/50 ${
+                currentSection === contactItem.section 
+                  ? 'text-blue-500 dark:text-blue-400 bg-blue-100/20 dark:bg-blue-900/20' 
+                  : 'text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400'
+              }`}
             >
-              {item.icon}
+              {contactItem.icon}
+              
+              {/* Current section indicator */}
+              {currentSection === contactItem.section && (
+                <motion.div
+                  layoutId="currentSection"
+                  className="absolute inset-0 bg-blue-500/20 dark:bg-blue-400/20 rounded-lg"
+                  initial={false}
+                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                />
+              )}
               
               {/* Tooltip */}
               <motion.div
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ 
-                  opacity: hoveredItem === item.id ? 1 : 0,
-                  x: hoveredItem === item.id ? 0 : -10
+                  opacity: hoveredItem === contactItem.id ? 1 : 0,
+                  x: hoveredItem === contactItem.id ? 0 : -10
                 }}
                 transition={{ duration: 0.2 }}
-                className="absolute left-full ml-3 px-3 py-1.5 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 text-sm rounded-lg whitespace-nowrap pointer-events-none shadow-lg"
+                className="absolute left-full ml-3 px-3 py-1.5 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 text-sm rounded-lg whitespace-nowrap pointer-events-none shadow-lg z-10"
               >
-                {item.label}
+                {contactItem.label}
                 <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1 w-2 h-2 bg-gray-900 dark:bg-gray-100 rotate-45" />
               </motion.div>
             </motion.button>
-          ))}
+          </div>
+        </motion.div>
+      </motion.nav>
 
-          {/* Divider */}
-          <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-400 dark:via-gray-600 to-transparent my-2" />
-
-          {/* Navigation Items */}
-          {navigationItems.map((item) => (
-            <motion.button
-              key={item.id}
-              onClick={() => handleClick(item)}
-              onHoverStart={() => setHoveredItem(item.id)}
-              onHoverEnd={() => setHoveredItem(null)}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              className="relative flex items-center justify-center w-10 h-10 text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors duration-200 rounded-lg hover:bg-white/20 dark:hover:bg-gray-700/50"
-            >
-              {item.icon}
-              
-              {/* Tooltip */}
-              <motion.div
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ 
-                  opacity: hoveredItem === item.id ? 1 : 0,
-                  x: hoveredItem === item.id ? 0 : -10
-                }}
-                transition={{ duration: 0.2 }}
-                className="absolute left-full ml-3 px-3 py-1.5 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 text-sm rounded-lg whitespace-nowrap pointer-events-none shadow-lg"
-              >
-                {item.label}
-                <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1 w-2 h-2 bg-gray-900 dark:bg-gray-100 rotate-45" />
-              </motion.div>
-            </motion.button>
-          ))}
-
-          {/* Divider */}
-          <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-400 dark:via-gray-600 to-transparent my-2" />
-
-          {/* Contact Item */}
-          <motion.button
-            onClick={() => handleClick(contactItem)}
-            onHoverStart={() => setHoveredItem(contactItem.id)}
-            onHoverEnd={() => setHoveredItem(null)}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            className="relative flex items-center justify-center w-10 h-10 text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors duration-200 rounded-lg hover:bg-white/20 dark:hover:bg-gray-700/50"
-          >
-            {contactItem.icon}
-            
-            {/* Tooltip */}
-            <motion.div
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ 
-                opacity: hoveredItem === contactItem.id ? 1 : 0,
-                x: hoveredItem === contactItem.id ? 0 : -10
-              }}
-              transition={{ duration: 0.2 }}
-              className="absolute left-full ml-3 px-3 py-1.5 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 text-sm rounded-lg whitespace-nowrap pointer-events-none shadow-lg"
-            >
-              {contactItem.label}
-              <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1 w-2 h-2 bg-gray-900 dark:bg-gray-100 rotate-45" />
-            </motion.div>
-          </motion.button>
-        </div>
+      {/* Section Indicator (shows when navbar is hidden on mobile) */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ 
+          opacity: isMobile && showIndicator ? 1 : 0,
+          scale: isMobile && showIndicator ? 1 : 0
+        }}
+        transition={{ duration: 0.3 }}
+        className="fixed left-4 top-8 z-50 pointer-events-none"
+      >
+        <motion.div
+          className="bg-white/10 dark:bg-gray-900/10 backdrop-blur-lg border border-blue-400/30 rounded-full p-3 shadow-lg"
+        >
+          <div className="text-blue-500 dark:text-blue-400">
+            {getSectionIcon(currentSection)}
+          </div>
+        </motion.div>
+        
+        {/* Touch indicator text */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 px-2 py-1 bg-black/80 text-white text-xs rounded-md whitespace-nowrap"
+        >
+          Navigate
+        </motion.div>
       </motion.div>
-    </motion.nav>
+
+      {/* Touch overlay for mobile when navbar is hidden */}
+      {isMobile && isScrolled && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed left-0 top-0 w-20 h-full z-30"
+          onTouchStart={() => {
+            // Temporarily show navbar on touch
+            setIsScrolled(false);
+            setTimeout(() => setIsScrolled(window.scrollY > 100), 3000);
+          }}
+        />
+      )}
+    </>
   );
 };
 
