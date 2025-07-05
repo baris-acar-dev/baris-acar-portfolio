@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import React, { useState, useEffect } from "react";
 
 interface NavigationItem {
@@ -235,10 +236,12 @@ const Navbar = () => {
               whileHover={{ scale: 1.1 }}
               transition={{ duration: 0.2 }}
             >
-              <img 
+              <Image 
                 src="/favicon.ico" 
                 alt="Website Icon" 
-                className="w-6 h-6 object-contain"
+                width={24}
+                height={24}
+                className="object-contain"
               />
             </motion.div>
 

@@ -1102,7 +1102,7 @@ export default function Home() {
                     Eskisehir Technical University
                   </p>
                   <p className="text-gray-600 dark:text-gray-400 mb-4">
-                    Eskisehir, TÜRKİYE
+                    Eskisehir, TURKIYE
                   </p>
                 </div>
                 <motion.div
@@ -1110,7 +1110,7 @@ export default function Home() {
                   className="bg-gradient-to-r from-green-100 to-teal-100 dark:from-green-900/30 dark:to-teal-900/30 px-4 py-2 rounded-full"
                 >
                   <span className="text-sm font-medium text-green-700 dark:text-green-300">
-                    October 2020 – June 2024
+                    October 2020 - June 2024
                   </span>
                 </motion.div>
               </div>
@@ -1127,6 +1127,7 @@ export default function Home() {
                       {[
                         "Data Structures and Algorithms",
                         "Object-Oriented Programming",
+                        "Java Programming",
                         "Database Management Systems",
                         "Web Development Technologies",
                         "Software Engineering Principles",
@@ -1149,7 +1150,7 @@ export default function Home() {
                   <div>
                     <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Academic Focus:</h4>
                     <div className="flex flex-wrap gap-2">
-                      {["Software Engineering", "Web Development", "AI & ML", "Database Systems", "Algorithms", "Computer Systems"].map((focus) => (
+                      {["Software Engineering", "Java", "Web Development", "Python", "AI & ML", "Database Systems", "Algorithms", "Computer Systems"].map((focus) => (
                         <motion.span
                           key={focus}
                           whileHover={{ scale: 1.1 }}
@@ -1186,7 +1187,7 @@ export default function Home() {
                   className="bg-gradient-to-r from-orange-100 to-red-100 dark:from-orange-900/30 dark:to-red-900/30 px-4 py-2 rounded-full"
                 >
                   <span className="text-sm font-medium text-orange-700 dark:text-orange-300">
-                    Spring 2024
+                    Spring 2023
                   </span>
                 </motion.div>
               </div>
@@ -1224,7 +1225,7 @@ export default function Home() {
                   <div>
                     <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Skills Developed:</h4>
                     <div className="flex flex-wrap gap-2">
-                      {["Cultural Adaptability", "Java", "Artificial Intelligence", "International Collaboration", "Independence", "Global Perspective", "Lithuanian Language Introduction"].map((skill) => (
+                      {["Cultural Adaptability", "Java", "Python", "Artificial Intelligence", "International Collaboration", "Independence", "Global Perspective", "Lithuanian Language Introduction"].map((skill) => (
                         <motion.span
                           key={skill}
                           whileHover={{ scale: 1.1 }}
