@@ -29,7 +29,7 @@ const Navbar = () => {
       setIsScrolled(scrollY > 100);
       
       // Determine current section
-      const sections = ['home', 'projects', 'work', 'skills', 'contact'];
+      const sections = ['home', 'projects', 'work', 'skills', 'experience', 'education', 'contact'];
       const sectionElements = sections.map(section => ({
         id: section,
         element: document.querySelector(`[data-section="${section}"]`),
@@ -168,6 +168,26 @@ const Navbar = () => {
       ),
       label: "Skills",
       section: "skills"
+    },
+    {
+      id: "experience",
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2V6" />
+        </svg>
+      ),
+      label: "Experience",
+      section: "experience"
+    },
+    {
+      id: "education",
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+        </svg>
+      ),
+      label: "Education",
+      section: "education"
     }
   ];
 
@@ -209,6 +229,22 @@ const Navbar = () => {
           transition={{ duration: 0.2 }}
         >
           <div className="flex flex-col space-y-2">
+            {/* Website Icon/Favicon */}
+            <motion.div
+              className="flex items-center justify-center w-10 h-10 mb-2"
+              whileHover={{ scale: 1.1 }}
+              transition={{ duration: 0.2 }}
+            >
+              <img 
+                src="/favicon.ico" 
+                alt="Website Icon" 
+                className="w-6 h-6 object-contain"
+              />
+            </motion.div>
+
+            {/* Divider */}
+            <div className="w-full h-px bg-gradient-to-r from-transparent via-blue-400 dark:via-blue-500 to-transparent" />
+
             {/* Social Links */}
             {socialLinks.map((item) => (
               <motion.button
