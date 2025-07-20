@@ -4,7 +4,6 @@ import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
 import Image from "next/image";
 import React, { useRef, useState } from "react";
 import StarBackground from "./components/StarBackground";
-import AnimatedWorkArea from "./components/AnimatedWorkArea";
 import Navbar from "./components/Navbar";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -647,14 +646,43 @@ export default function Home() {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-6xl mx-auto"
         >
           {workAreas.map((area) => (
-            <AnimatedWorkArea
+            <motion.div
               key={area.title}
-              title={area.title}
-              icon={area.icon}
-              description={area.description}
-              animationType={area.animationType}
-              skills={area.skills}
-            />
+              variants={fadeInUp}
+              className="group bg-gradient-to-br from-white/10 to-white/5 dark:from-gray-900/50 dark:to-gray-800/30 
+                         backdrop-blur-lg rounded-2xl border border-gray-200/20 dark:border-gray-700/30 
+                         shadow-xl hover:shadow-2xl transition-all duration-500 p-8 
+                         hover:scale-105 hover:border-blue-500/50 dark:hover:border-purple-500/50"
+            >
+              <div className="flex items-center gap-4 mb-6">
+                <div className="text-4xl group-hover:scale-110 transition-transform duration-300">
+                  {area.icon}
+                </div>
+                <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 
+                               dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
+                  {area.title}
+                </h3>
+              </div>
+              
+              <p className="text-gray-700 dark:text-gray-300 text-lg mb-6 leading-relaxed">
+                {area.description}
+              </p>
+              
+              <div className="flex flex-wrap gap-2">
+                {area.skills.map((skill) => (
+                  <span
+                    key={skill}
+                    className="px-3 py-1 bg-gradient-to-r from-blue-500/20 to-purple-500/20 
+                               dark:from-blue-400/20 dark:to-purple-400/20 
+                               rounded-full text-sm font-medium text-gray-800 dark:text-gray-200
+                               border border-blue-500/30 dark:border-purple-500/30
+                               group-hover:scale-105 transition-transform duration-200"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
           ))}
         </motion.div>
       </section>
