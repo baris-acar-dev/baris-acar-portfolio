@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useTransform } from "framer-motion";
+import { motion, MotionValue } from "framer-motion";
 import React from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -15,7 +15,7 @@ interface HeroSectionProps {
   scrollIndicatorRef: React.RefObject<HTMLDivElement | null>;
   animationComplete: boolean;
   setAnimationComplete: (complete: boolean) => void;
-  y: any;
+  y: MotionValue<string>;
   scrollToSection: (sectionName: string) => void;
 }
 
