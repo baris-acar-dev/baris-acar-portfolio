@@ -134,7 +134,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           ref={subtitleRef}
           className="text-2xl md:text-4xl font-bold text-center mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400"
         >
-          AI Engineer & Full Stack Developer
+          AI Powered Full Stack Developer
         </h2>
         <p
           ref={descriptionRef}

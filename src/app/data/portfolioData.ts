@@ -93,26 +93,42 @@ export const workAreas = [
 
 export const projects = [
   {
-    id: 1,
-    title: "Universal Video Downloader",
-    status: "Production",
-    description: "A powerful web application for downloading videos from multiple platforms with high-quality output options.",
-    technologies: ["Next.js 15", "React 19", "TypeScript", "Tailwind CSS", "GSAP", "Zustand", "Headless UI", "yt-dlp"],
-    longDescription: "Universal Video Downloader is a comprehensive web application built with Next.js 15 and React that allows users to download videos from various platforms including YouTube, Twitter, Instagram, and more. The application features a modern user interface with drag-and-drop functionality, batch downloading capabilities, and quality selection options. It utilizes yt-dlp for video processing on the backend and implements state management with Zustand for optimal user experience.",
+    "id": 1,
+    title: "Chattie AI Copilot",
+    status: "Beta",
+    description: "An advanced Next.js 15 AI copilot with multi-provider support (Ollama, OpenAI, Gemini), a sophisticated RAG knowledge base, web scraping, and a prompt template system.",
+    technologies: [
+      "Next.js 15",
+      "React 19",
+      "TypeScript",
+      "PostgreSQL",
+      "Prisma ORM",
+      "NextAuth.js",
+      "Ollama",
+      "Google Gemini",
+      "OpenAI GPT",
+      "Framer Motion",
+      "GSAP",
+      "Tailwind CSS"
+    ],
+    longDescription: "Chattie is a powerful AI copilot built with Next.js 15. It features a flexible multi-provider architecture, allowing integration with local models via Ollama, as well as cloud services like OpenAI GPT and Google Gemini. Its core strength lies in an advanced Retrieval-Augmented Generation (RAG) system that enhances search with keyword matching, cross-encoder re-ranking, and corrective RAG. The system processes multiple document formats (PDF, DOCX, etc.) with intelligent, paragraph-aware chunking strategies. Additional features include web scraping for content analysis, a dynamic prompt template system, and secure, encrypted per-user API key management. Built on a robust stack including PostgreSQL, Prisma, and NextAuth.js, Chattie offers a comprehensive solution for creating intelligent, context-aware conversational AI.",
     features: [
-      "Support for 15+ video platforms",
-      "Multiple quality options (4K, 1080p, 720p, etc.)",
-      "Batch downloading with queue management",
-      "Progress tracking and download history",
-      "Audio extraction capabilities",
-      "Subtitle download support",
-      "Custom output directory selection",
-      "Responsive design with Tailwind CSS",
-      "Smooth animations with GSAP"
+      "Multi-Provider AI Integration (Ollama, OpenAI, Google Gemini)",
+      "Advanced RAG with Cross-Encoder Re-ranking",
+      "Corrective RAG for Enhanced Search Accuracy",
+      "Multi-format Document Processing (PDF, DOCX, Excel, Text)",
+      "Paragraph-Aware Content Chunking Strategy",
+      "Web Scraping Capabilities for URL content analysis",
+      "Dynamic Prompt Template System",
+      "Secure, Encrypted Per-User API Key Management",
+      "Multi-user support with Demo-style NextAuth.js Authentication",
+      "Persistent Conversation Storage with PostgreSQL & Prisma",
+      "Smart AI-Generated Conversation Titles",
+      "Responsive UI with Mobile-First Design & Dark Mode"
     ],
     demoUrl: "#",
-    githubUrl: "#",
-    image: "/uvd.jpg"
+    githubUrl: "https://github.com/baris-acar-dev/chattie",
+    image: "/chattie.jpg"
   },
   {
     id: 2,
@@ -136,28 +152,25 @@ export const projects = [
   },
   {
     id: 3,
-    title: "Chattie - AI Chatbot with RAG",
-    status: "Beta",
-    description: "A comprehensive Next.js chatbot application with local Ollama AI models, advanced RAG knowledge base, and intelligent document processing.",
-    technologies: ["Next.js 15", "React 19", "TypeScript", "PostgreSQL", "Prisma ORM", "NextAuth.js", "Ollama", "Google Gemini", "Framer Motion", "GSAP", "Tailwind CSS"],
-    longDescription: "Chattie is an advanced AI chatbot application that combines local Ollama models with cloud-based Google Gemini AI. It features a sophisticated RAG (Retrieval-Augmented Generation) knowledge base system that can process multiple document formats including PDF, DOCX, Excel, and text files. The application includes web scraping capabilities, intelligent document chunking, multi-user support with authentication, and beautiful animations. Users can upload documents and ask questions about their content, with the AI providing contextual answers with source citations.",
+    title: "Universal Video Downloader",
+    status: "Production",
+    description: "A powerful web application for downloading videos from multiple platforms with high-quality output options.",
+    technologies: ["Next.js 15", "React 19", "TypeScript", "Tailwind CSS", "GSAP", "Zustand", "Headless UI", "yt-dlp"],
+    longDescription: "Universal Video Downloader is a comprehensive web application built with Next.js 15 and React that allows users to download videos from various platforms including YouTube, Twitter, Instagram, and more. The application features a modern user interface with drag-and-drop functionality, batch downloading capabilities, and quality selection options. It utilizes yt-dlp for video processing on the backend and implements state management with Zustand for optimal user experience.",
     features: [
-      "Local AI chat with Ollama models + Cloud AI with Google Gemini",
-      "Advanced RAG knowledge base with multi-format document support",
-      "Intelligent document processing (PDF, DOCX, Excel, Text)",
-      "Web scraping capabilities for URL content analysis",
-      "Smart document selection and filtering",
-      "Context-aware content chunking and relevance scoring",
-      "Multi-user support with NextAuth.js authentication",
-      "Persistent conversation storage with PostgreSQL",
-      "Real-time animations with Framer Motion and GSAP",
-      "Responsive UI with dark mode support",
-      "Secure API key management with encryption",
-      "Special thinking message display for AI reasoning"
+      "Support for 15+ video platforms",
+      "Multiple quality options (4K, 1080p, 720p, etc.)",
+      "Batch downloading with queue management",
+      "Progress tracking and download history",
+      "Audio extraction capabilities",
+      "Subtitle download support",
+      "Custom output directory selection",
+      "Responsive design with Tailwind CSS",
+      "Smooth animations with GSAP"
     ],
     demoUrl: "#",
     githubUrl: "#",
-    image: "/chattie.jpg"
+    image: "/uvd.jpg"
   }
 ];
 
