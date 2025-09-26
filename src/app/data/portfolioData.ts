@@ -76,18 +76,11 @@ export const workAreas = [
     skills: ["Machine Learning", "Generative AI", "Python", "TensorFlow", "PyTorch"]
   },
   {
-    title: "Frontend Development",
-    icon: "💻",
-    description: "Creating modern, responsive web applications with cutting-edge technologies",
-    animationType: "frontend" as const,
-    skills: ["React", "Next.js", "TypeScript", "Tailwind CSS", "GSAP"]
-  },
-  {
     title: "Full-Stack Development",
     icon: "💻",
     description: "Building robust and scalable web applications from server to client.",
     animationType: "frontend" as const,
-    skills: ["Node.js", "React", "Next.js", "PostgreSQL", "MongoDB", "Prisma ORM"]
+    skills: ["Node.js", "React", "Next.js", "PostgreSQL", "MongoDB", "Prisma ORM", "Tailwind CSS", "REST APIs", "GSAP"]
   }
 ];
 
