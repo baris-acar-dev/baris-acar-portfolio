@@ -147,7 +147,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             Tech Focus:
           </span>
           <span className="text-sm md:text-base text-blue-300 ml-2">
-            React | Next.js | Node.js | Python | Generative AI | Agentic AI | User-Friendly Design
+            React | Next.js | Node.js | Python | Generative AI | Agentic AI
           </span>
         </div>
         <div
@@ -198,7 +198,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           duration: 3,
           ease: "easeInOut"
         }}
-        className="absolute top-1/4 left-1/4 w-2 h-2 bg-white rounded-full"
       />
       <motion.div
         animate={{
@@ -210,7 +209,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           duration: 4,
           ease: "easeInOut"
         }}
-        className="absolute top-1/3 right-1/4 w-2 h-2 bg-white rounded-full"
       />
     </section>
   );

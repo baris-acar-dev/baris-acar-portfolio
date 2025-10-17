@@ -13,59 +13,103 @@ const StarBackground = () => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Set canvas size
-    const setCanvasSize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-    setCanvasSize();
-    window.addEventListener('resize', setCanvasSize);
-
     // Star properties
     const stars: { x: number; y: number; size: number; speed: number; twinkleSpeed: number; twinklePhase: number }[] = [];
     const numStars = 200;
     const maxStarSize = 2;
 
+    // Initialize stars
+    const initializeStars = () => {
+      // Clear the existing stars array before repopulating
+      stars.length = 0;
+      for (let i = 0; i < numStars; i++) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          size: Math.random() * maxStarSize,
+          speed: Math.random() * 0.2 + 0.1,
+          twinkleSpeed: Math.random() * 0.05 + 0.01,
+          twinklePhase: Math.random() * Math.PI * 2,
+        });
+      }
+    };
+
+    const setCanvasSize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      initializeStars(); // This is the key fix!
+    };
+
+    setCanvasSize();
+    window.addEventListener('resize', setCanvasSize);
+
     // Shooting star properties
-    const shootingStars: { x: number; y: number; length: number; speed: number; angle: number; active: boolean }[] = [];
+    interface ShootingStar {
+      x: number;
+      y: number;
+      length: number;
+      speed: number;
+      angle: number;
+      active: boolean;
+    }
+    const shootingStars: ShootingStar[] = [];
     const numShootingStars = 3;
 
-    // Initialize stars
-    for (let i = 0; i < numStars; i++) {
-      stars.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        size: Math.random() * maxStarSize,
-        speed: Math.random() * 0.2 + 0.1,
-        twinkleSpeed: Math.random() * 0.05 + 0.01,
-        twinklePhase: Math.random() * Math.PI * 2,
-      });
-    }
+    const resetShootingStar = (star: ShootingStar) => {
+      star.length = Math.random() * 80 + 50;
+      star.speed = Math.random() * 10 + 6;
+      star.active = true;
+
+      const edge = Math.floor(Math.random() * 4); // 0: top, 1: right, 2: bottom, 3: left
+
+      switch (edge) {
+        case 0: // Top edge
+          star.x = Math.random() * canvas.width;
+          star.y = -star.length;
+          star.angle = Math.random() * (Math.PI / 2) + Math.PI / 4; // Downward angle
+          break;
+        case 1: // Right edge
+          star.x = canvas.width + star.length;
+          star.y = Math.random() * canvas.height;
+          star.angle = Math.random() * (Math.PI / 2) + (3 * Math.PI / 4); // Leftward angle
+          break;
+        case 2: // Bottom edge
+          star.x = Math.random() * canvas.width;
+          star.y = canvas.height + star.length;
+          star.angle = Math.random() * (Math.PI / 2) + (5 * Math.PI / 4); // Upward angle
+          break;
+        case 3: // Left edge
+          star.x = -star.length;
+          star.y = Math.random() * canvas.height;
+          star.angle = Math.random() * (Math.PI / 2) - Math.PI / 4; // Rightward angle
+          break;
+      }
+    };
 
     // Initialize shooting stars
     for (let i = 0; i < numShootingStars; i++) {
-      shootingStars.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        length: Math.random() * 50 + 50,
-        speed: Math.random() * 5 + 5,
-        angle: Math.random() * Math.PI / 4 + Math.PI / 4,
-        active: false,
-      });
+      const star = { x: 0, y: 0, length: 0, speed: 0, angle: 0, active: false };
+      shootingStars.push(star);
+      // De-activate them initially
+      setTimeout(() => resetShootingStar(star), Math.random() * 3000);
     }
 
     // Animation
     let animationFrameId: number;
     const animate = () => {
+      /*
       ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillRect(0, 0, canvas.width, canvas.height);*/
 
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = 'black';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
       // Update and draw stars
       stars.forEach(star => {
         // Calculate twinkle effect
         const twinkle = Math.sin(star.twinklePhase) * 0.5 + 0.5;
         ctx.fillStyle = `rgba(255, 255, 255, ${0.3 + twinkle * 0.7})`;
-        
+
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.size * (0.5 + twinkle * 0.5), 0, Math.PI * 2);
         ctx.fill();
@@ -94,8 +138,8 @@ const StarBackground = () => {
           ctx.lineWidth = 2;
           ctx.beginPath();
           ctx.moveTo(star.x, star.y);
-          ctx.lineTo(star.x - star.length * Math.cos(star.angle), 
-                    star.y - star.length * Math.sin(star.angle));
+          ctx.lineTo(star.x - star.length * Math.cos(star.angle),
+            star.y - star.length * Math.sin(star.angle));
           ctx.stroke();
 
           // Add glow effect

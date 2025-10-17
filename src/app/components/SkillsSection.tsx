@@ -2,12 +2,27 @@
 
 import { motion } from "framer-motion";
 import React from "react";
-import { technologies, learningResources, languages, interests, fadeInUp, staggerContainer } from "../data/portfolioData";
+import { technologies, languages, interests, fadeInUp, staggerContainer } from "../data/portfolioData";
 
 interface SkillsSectionProps {
   hoveredTech: string | null;
   setHoveredTech: (tech: string | null) => void;
 }
+
+const getLevelBadgeClass = (level: string) => {
+  switch (level.toLowerCase()) {
+    case 'native':
+      return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300';
+    case 'proficient':
+      return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300';
+    case 'elementary':
+      return 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300';
+    case 'learning':
+      return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300';
+    default:
+      return 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300';
+  }
+};
 
 const SkillsSection: React.FC<SkillsSectionProps> = ({
   hoveredTech,
@@ -59,15 +74,15 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
                 onHoverEnd={() => setHoveredTech(null)}
                 className="bg-white dark:bg-gray-800/50 p-4 rounded-lg shadow-md backdrop-blur-sm border border-gray-200 dark:border-gray-700 flex items-center gap-3 transition-colors duration-200"
               >
-                <motion.span
+                <motion.div
+                  className="w-8 h-8 text-gray-800 dark:text-gray-200"
                   animate={{
                     scale: hoveredTech === tech.name ? 1.2 : 1,
                     rotate: hoveredTech === tech.name ? 360 : 0
                   }}
-                  className="text-2xl"
                 >
                   {tech.icon}
-                </motion.span>
+                </motion.div>
                 <span className="font-medium">{tech.name}</span>
               </motion.div>
             ))}
@@ -88,64 +103,42 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
             variants={staggerContainer}
             initial="initial"
             whileInView="animate"
+            viewport={{ once: true }}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
           >
-            {languages.map((lang, index) => (
+            {languages.map((lang) => (
               <motion.div
                 key={lang.language}
                 variants={fadeInUp}
-                whileHover={{ scale: 1.02 }}
+                whileHover={{ scale: 1.03 }}
                 className="bg-white dark:bg-gray-800/50 p-6 rounded-lg shadow-md backdrop-blur-sm border border-gray-200 dark:border-gray-700"
               >
-                <div className="flex justify-between mb-3">
-                  <span className="font-medium">{lang.language}</span>
-                  <span className="text-blue-600 dark:text-blue-400">{lang.level}</span>
+                {/* Header for language name and level */}
+                <div className="flex justify-between items-center mb-4">
+                  <span className="font-bold text-lg text-gray-900 dark:text-white">
+                    {lang.language}
+                  </span>
+                  <span className={`px-2.5 py-0.5 rounded-full text-xs font-semibold ${getLevelBadgeClass(lang.level)}`}>
+                    {lang.level}
+                  </span>
                 </div>
-                <div className="w-full h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    whileInView={{ width: `${lang.progress}%` }}
-                    transition={{ duration: 1.5, delay: index * 0.2 }}
-                    className="h-full bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 rounded-full"
-                  />
+                <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-2">
+                    {lang.context.map((ctx) => (
+                      <motion.span
+                        key={ctx}
+                        whileHover={{ scale: 1.1 }}
+                        className={`px-3 py-1 ${getLevelBadgeClass(lang.level)} rounded-full text-sm font-medium`}
+                      >
+                        {ctx}
+                      </motion.span>
+                    ))}
+                  </div>
                 </div>
               </motion.div>
             ))}
           </motion.div>
         </div>
-
-        {/* Learning Resources with enhanced animations */}
-        <div className="space-y-6">
-          <motion.h3
-            variants={fadeInUp}
-            initial="initial"
-            whileInView="animate"
-            className="text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400"
-          >
-            Learning Resources
-          </motion.h3>
-          <motion.div
-            variants={staggerContainer}
-            initial="initial"
-            whileInView="animate"
-            className="flex flex-wrap gap-3"
-          >
-            {learningResources.map((resource) => (
-              <motion.span
-                key={resource}
-                variants={fadeInUp}
-                whileHover={{
-                  scale: 1.1,
-                  backgroundColor: "rgba(59, 130, 246, 0.1)",
-                }}
-                className="px-4 py-2 bg-white dark:bg-gray-800/50 rounded-full shadow-md backdrop-blur-sm border border-gray-200 dark:border-gray-700 text-sm font-medium transition-colors duration-200"
-              >
-                {resource}
-              </motion.span>
-            ))}
-          </motion.div>
-        </div>
-
         {/* Interests with enhanced animations */}
         <div className="space-y-6">
           <motion.h3
@@ -174,15 +167,15 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
                 data-interest={interest.name}
               >
                 <motion.div
-                  className="text-3xl mb-2"
-                  whileHover={{ scale: 1.2, rotate: 10 }}
+                  className="text-3xl mb-2 flex justify-center items-center mx-auto w-12 h-12 text-gray-800 dark:text-gray-200"
+                  whileHover={ interest.name.includes('Physics') ? {} : { scale: 1.2, rotate: 10 } }
                   animate={interest.name.includes('Physics') ? {
                     rotate: [0, 360],
                     scale: [1, 1.1, 1]
                   } : {}}
                   transition={interest.name.includes('Physics') ? {
                     rotate: { repeat: Infinity, duration: 3, ease: "linear" },
-                    scale: { repeat: Infinity, duration: 2, ease: "easeInOut" }
+                    scale: { repeat: Infinity, duration: 2, ease: "easeInOut"}
                   } : { type: "spring", stiffness: 300 }}
                 >
                   {interest.icon}
@@ -190,20 +183,6 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
                 <div className="font-semibold text-gray-900 dark:text-white mb-2">
                   {interest.name}
                 </div>
-                <motion.div
-                  className="text-sm text-gray-600 dark:text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  initial={{ height: 0 }}
-                  whileHover={{ height: "auto" }}
-                >
-                  {interest.description}
-                </motion.div>
-
-                {/* Simple decorative elements */}
-                {interest.name.includes('Music') && (
-                  <div className="absolute top-2 right-2 text-2xl animate-pulse">
-                    🎵
-                  </div>
-                )}
               </motion.div>
             ))}
           </motion.div>
