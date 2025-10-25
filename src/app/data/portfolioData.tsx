@@ -10,9 +10,9 @@ const ReactIcon = (
   <svg viewBox="-11.5 -10.23 23 20.46" fill="aqua">
     <circle r="2.05" />
     <g stroke="aqua" strokeWidth="1" fill="none">
-      <ellipse rx="11" ry="4.2" />
-      <ellipse rx="11" ry="4.2" transform="rotate(60)" />
-      <ellipse rx="11" ry="4.2" transform="rotate(120)" />
+      <ellipse rx="10.5" ry="4.2" />
+      <ellipse rx="10.5" ry="4.2" transform="rotate(60)" />
+      <ellipse rx="10.5" ry="4.2" transform="rotate(120)" />
     </g>
   </svg>
 );
@@ -184,7 +184,7 @@ export const projects = [
   {
     id: 3,
     title: "Universal Video Downloader",
-    status: "Production",
+    status: "Stable",
     description: "A powerful web application for downloading videos from multiple platforms with high-quality output options.",
     technologies: ["Next.js 15", "React 19", "TypeScript", "Tailwind CSS", "GSAP", "Zustand", "Headless UI", "yt-dlp"],
     longDescription: "Universal Video Downloader is a comprehensive web application built with Next.js 15 and React that allows users to download videos from various platforms including YouTube, Twitter, Instagram, and more. The application features a modern user interface with drag-and-drop functionality, batch downloading capabilities, and quality selection options. It utilizes yt-dlp for video processing on the backend and implements state management with Zustand for optimal user experience.",
